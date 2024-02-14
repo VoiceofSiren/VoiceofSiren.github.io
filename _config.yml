@@ -30,11 +30,11 @@ twitter_username: jekyllrb
 github_username:  jekyll
 remote_theme: samarsault/plainwhite-jekyll
 # Build settings
-#theme: minima
+theme: minima
 plugins:
   - jekyll-feed
 
-plainwhite:
+minima:
   name: Adam Denisov
   tagline: Developer. Designer
   date_format: "%b %-d, %Y"
