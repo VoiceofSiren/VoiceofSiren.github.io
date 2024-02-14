@@ -30,7 +30,7 @@ twitter_username: jekyllrb
 github_username:  jekyll
 remote_theme: samarsault/plainwhite-jekyll
 # Build settings
-theme: plainwhite
+#theme: minima
 plugins:
   - jekyll-feed
 
@@ -45,7 +45,6 @@ plainwhite:
     linkedIn: in/samarsault # format: locale/username
 
   portfolio_image:  "assets/portfolio.png" # the path from the base directory of the site to the image to display (no / at the start)
-
 
 # Exclude from processing.
 # The following items will not be processed, by default.
