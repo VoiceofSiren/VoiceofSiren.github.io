@@ -44,6 +44,12 @@ minima:
 
   portfolio_image:  "assets/portfolio.png" # the path from the base directory of the site to the image to display (no / at the start)
 
+  navigation:
+    - title: My Work
+      url: "/my-work"
+    - title: Resume
+      url: "/resume"
+
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to
