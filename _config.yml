@@ -18,14 +18,16 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Verification of Myself
-email: aigqhgja526@gmail.com
+title: Your awesome title
+email: your-email@example.com
 description: >- # this means to ignore newlines until "baseurl:"
-  This website shows my introduction, works, challenges and resolution.
+  Write an awesome description for your new site here. You can edit this
+  line in _config.yml. It will appear in your document head meta (for
+  Google search results) and in your feed.xml site description.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: jekyllrb
-github_username:  VoiceofSiren
+github_username:  jekyll
 remote_theme: samarsault/plainwhite-jekyll
 # Build settings
 theme: minima
@@ -33,14 +35,14 @@ plugins:
   - jekyll-feed
 
 minima:
-  name: Youngmoo Park
-  tagline: JAVA Back-end Developer
+  name: Adam Denisov
+  tagline: Developer. Designer
   date_format: "%b %-d, %Y"
 
   social_links:
-#    twitter: samarsault
-    github: VoiceofSiren
-#    linkedIn: in/samarsault # format: locale/username
+    twitter: samarsault
+    github: samarsault
+    linkedIn: in/samarsault # format: locale/username
 
   portfolio_image:  "assets/portfolio.png" # the path from the base directory of the site to the image to display (no / at the start)
 
