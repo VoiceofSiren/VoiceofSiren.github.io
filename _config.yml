@@ -30,9 +30,22 @@ twitter_username: jekyllrb
 github_username:  jekyll
 remote_theme: samarsault/plainwhite-jekyll
 # Build settings
-theme: minima
+theme: plainwhite
 plugins:
   - jekyll-feed
+
+plainwhite:
+  name: Adam Denisov
+  tagline: Developer. Designer
+  date_format: "%b %-d, %Y"
+
+  social_links:
+    twitter: samarsault
+    github: samarsault
+    linkedIn: in/samarsault # format: locale/username
+
+  portfolio_image:  "assets/portfolio.png" # the path from the base directory of the site to the image to display (no / at the start)
+
 
 # Exclude from processing.
 # The following items will not be processed, by default.

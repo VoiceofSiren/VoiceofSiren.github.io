@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Welcome to Jekyll!"
+title:  "첫 글... 나의 다짐"
 date:   2024-02-15 01:26:04 +0900
 categories: jekyll update
 ---
