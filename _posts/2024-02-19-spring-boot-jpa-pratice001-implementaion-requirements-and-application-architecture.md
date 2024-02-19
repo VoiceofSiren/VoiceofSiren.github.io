@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Implementation Requirements and Application Architecture in Spring boot JPA practice001"
+title: "JPA Practice001: #003 - Implementation Requirements and Application Architecture"
 categories: junk
 author:
   - Youngmoo Park

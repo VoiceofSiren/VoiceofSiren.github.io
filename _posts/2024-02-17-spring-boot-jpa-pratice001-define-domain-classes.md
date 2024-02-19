@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Define Domain classes in Spring boot JPA practice001"
+title: "JPA Practice001: #002 - Define Domain classes"
 categories: junk
 author:
   - Youngmoo Park
