@@ -13,7 +13,7 @@ meta: "Springfield"
 
 ![IMAGE](assets/images/0003/implementation-requirements.png)
 
-#### **1) 구현할 기능 **
+#### **1) 구현할 기능**
 
 - 회원 기능
   - 회원 등록
