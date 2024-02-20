@@ -18,7 +18,7 @@ meta: "Springfield"
 - 순서
   - 회원 Repository 개발
   - 회원 Service 개발
-  - 회원 기능 테스트
+  - 회원 기능 테스트 (다음 글에서)
 <br/>
 
 ## 2. 회원 Repository 개발
