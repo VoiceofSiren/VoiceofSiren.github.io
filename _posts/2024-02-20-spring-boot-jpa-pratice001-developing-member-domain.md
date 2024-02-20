@@ -69,20 +69,20 @@ public class MemberRepository {
 
 - @Repository
 ```plaintext
-- JPA 저장소를 표시하는 annotation.
-- Spring bean으로 자동 등록된다.
-- JPA 예외를 String 기반 예외로 변환한다.
+-- JPA 저장소를 표시하는 annotation.
+-- Spring bean으로 자동 등록된다.
+-- JPA 예외를 String 기반 예외로 변환한다.
 ```
 
 - @RequiredArgsConstructor
 ```plaintext
-- 생성자에 필수 의존성을 명시하는 annotation.
-- @Autowired와 함께 사용하면 생성자 주입 방식을 사용할 수 있다.
+-- 생성자에 필수 의존성을 명시하는 annotation.
+-- @Autowired와 함께 사용하면 생성자 주입 방식을 사용할 수 있다.
 ```
 
 - @PersistenceContext
 ```plaintext
-- JPA EntityManager를 주입하는 annotation.
+-- JPA EntityManager를 주입하는 annotation.
 ```
 
 ## 3. 회원 Service 개발
@@ -150,21 +150,21 @@ public class MemberService {
 
 - @Service
 ```plaintext
-- 비즈니스 로직을 처리하는 객체를 표시하는 annotation.
-- Spring bean으로 자동 등록된다.
+-- 비즈니스 로직을 처리하는 객체를 표시하는 annotation.
+-- Spring bean으로 자동 등록된다.
 ```
 
 - @Transactional
 ```plaintext
-- 트랜잭션을 관리하는 annotation.
-- 메서드에 적용하면 해당 메서드 내에서 일어나는 모든 작업은 하나의 트랜잭션으로 처리된다.
-- DB Driver가 지원하면 DB에서 성능이 향상된다.
-- readOnly=true: 조회 전용 메서드에서 사용하면 영속성 컨텍스트를 flush하지 않으므로 약간의 성능이 향상된다.
+-- 트랜잭션을 관리하는 annotation.
+-- 메서드에 적용하면 해당 메서드 내에서 일어나는 모든 작업은 하나의 트랜잭션으로 처리된다.
+-- DB Driver가 지원하면 DB에서 성능이 향상된다.
+-- readOnly=true: 조회 전용 메서드에서 사용하면 영속성 컨텍스트를 flush하지 않으므로 약간의 성능이 향상된다.
 ```
 
 - @Autowired
 ```plaintext
-- 생성자, setter 메서드 또는 필드에 사용하여 의존성을 자동으로 주입하는 annotation.
-- 필드에 사용하는 경우 @RequiredArgsConstructor와 함계 사용하면 더욱 안전하게 객체를 생성할 수 있다.
+-- 생성자, setter 메서드 또는 필드에 사용하여 의존성을 자동으로 주입하는 annotation.
+-- 필드에 사용하는 경우 @RequiredArgsConstructor와 함계 사용하면 더욱 안전하게 객체를 생성할 수 있다.
 ```
 
