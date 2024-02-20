@@ -126,6 +126,37 @@ public void 회원_가입() throws Exception {
 
 }
 ```
+
+또는 EntityManager을 주입하여 flush()를 강제 호출하는 아래와 같은 방식으로 코딩해도 된다.
+```java
+public class MemberServiceTest {
+
+    @Autowired
+    private MemberService memberService;
+
+    @Autowired
+    private MemberRepository memberRepository;
+
+    @Autowired
+    private EntityManager em;
+
+    @Test
+    public void 회원_가입() throws Exception {
+        //given
+        Member member = new Member();
+        member.setName("kim");
+
+        //when
+        Long savedId = memberService.join(member);
+
+        //then
+        em.flush();
+        assertEquals(member, memberRepository.findOne(savedId));
+
+    }
+}
+```
+
 위의 변경 사항을 적용하여 코드를 실행하면 아래처럼 insert문이 실행되는 것을 확인할 수 있다.
 
 ```plaintext

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "JPA Practice001: #001 - Start out with Spring boot JPA practice001"
+title: "JPA Practice001: #001 - Starting Out with Spring boot JPA practice001"
 categories: junk
 author:
   - Youngmoo Park

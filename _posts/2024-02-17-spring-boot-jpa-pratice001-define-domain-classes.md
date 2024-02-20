@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "JPA Practice001: #002 - Define Domain classes"
+title: "JPA Practice001: #002 - Defining Domain classes"
 categories: junk
 author:
   - Youngmoo Park
