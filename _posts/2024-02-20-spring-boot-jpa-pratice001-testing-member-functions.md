@@ -108,7 +108,7 @@ Hibernate:
 
 #### **2) 회원 Service Test 코드 - 과정 2**
 
-##### **i - 해결방법 1**
+##### **i - 해결 방법 1**
 
 public void 회원_가입() 위에 @Rollback(value = false)를 추가한다.
 
@@ -129,7 +129,7 @@ public void 회원_가입() throws Exception {
 }
 ```
 
-##### **ii - 해결방법 2**
+##### **ii - 해결 방법 2**
 
 또는 EntityManager을 주입하여 flush()를 강제 호출하는 아래와 같은 방식으로 코딩해도 된다.
 
@@ -175,8 +175,9 @@ Hibernate:
     values
         (?, ?, ?, ?, ?)
 ```
+<br/>
 
-## 3. 회원 기능 테스트 - 즁복 이름 검사
+## 3. 회원 기능 테스트 - 중복 이름 검사
 
 - 이름이 동일한 두 Member 객체를 DB에 저장할 때 예외를 handling하는 방법이다.
 
