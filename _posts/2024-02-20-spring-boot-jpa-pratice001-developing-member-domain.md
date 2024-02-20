@@ -19,6 +19,7 @@ meta: "Springfield"
   - 회원 Repository 개발
   - 회원 Service 개발
   - 회원 기능 테스트
+<br/>
 
 ## 2. 회원 Repository 개발
 
@@ -83,7 +84,9 @@ public class MemberRepository {
 - @PersistenceContext
 ```plaintext
 -- JPA EntityManager를 주입하는 annotation.
+-- @PersistenceUnit private EntityManagerFactory emf;를 거의 사용하지 않게 된다.
 ```
+<br/>
 
 ## 3. 회원 Service 개발
 
@@ -158,8 +161,9 @@ public class MemberService {
 ```plaintext
 -- 트랜잭션을 관리하는 annotation.
 -- 메서드에 적용하면 해당 메서드 내에서 일어나는 모든 작업은 하나의 트랜잭션으로 처리된다.
+-- JPA를 통해 데이터를 조회하거나 조작하는 모든 기능은 트랜잭션 내부에서 실행되어야 하고, 이 annotation이 있어야 지연 로딩을 사용할 수 있다.
 -- DB Driver가 지원하면 DB에서 성능이 향상된다.
--- readOnly=true: 조회 전용 메서드에서 사용하면 영속성 컨텍스트를 flush하지 않으므로 약간의 성능이 향상된다.
+-- readOnly=true: 조회 전용 메서드에서 사용하면 영속성 컨텍스트를 flush하지 않으므로 약간의 성능이 향상된다. (default: readOnly=false)
 ```
 
 - @Autowired
@@ -167,4 +171,56 @@ public class MemberService {
 -- 생성자, setter 메서드 또는 필드에 사용하여 의존성을 자동으로 주입하는 annotation.
 -- 필드에 사용하는 경우 @RequiredArgsConstructor와 함계 사용하면 더욱 안전하게 객체를 생성할 수 있다.
 ```
+<br/>
 
+## 4. 회원 기능 테스트
+
+- 테스트 요구사항
+  - 회원 가입이 성공적으로 이루어저야 한다.
+  - 회원 가입 시 동일한 이름의 회원이 있다면 예외가 발생해야 한다.
+
+#### **1) 회원 가입 테스트 코드**
+```java
+package jpabook.jpashop;
+
+import jpabook.jpashop.domain.Member;
+import jpabook.jpashop.repository.MemberRepository;
+import org.assertj.core.api.Assertions;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
+
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class MemberRepositoryTest {
+
+    @Autowired
+    MemberRepository memberRepository;
+
+    @Test
+    @Transactional
+    @Rollback(value = false)
+    public void testMember() throws Exception {
+        //given
+        Member member = new Member();
+        member.setName("memberA");
+
+        //when
+        Long savedId = memberRepository.save(member);
+        Member findMember = memberRepository.findOne(savedId);
+
+        //then
+        Assertions.assertThat(findMember.getId()).isEqualTo(member.getId());
+        Assertions.assertThat(findMember.getName()).isEqualTo(member.getName());
+        Assertions.assertThat(findMember).isEqualTo(member);
+    }
+
+
+}
+```
