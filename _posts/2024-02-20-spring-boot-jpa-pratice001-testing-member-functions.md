@@ -19,7 +19,7 @@ meta: "Springfield"
   - 회원 기능 테스트
 <br/>
 
-## 2. 회원 기능 테스트
+## 2. 회원 기능 테스트 - 회원 가입
 
 #### **1) 회원 Service Test 코드 - 과정 1**
 
@@ -108,6 +108,8 @@ Hibernate:
 
 #### **2) 회원 Service Test 코드 - 과정 2**
 
+##### **i - 해결방법 1**
+
 public void 회원_가입() 위에 @Rollback(value = false)를 추가한다.
 
 ```java
@@ -127,7 +129,10 @@ public void 회원_가입() throws Exception {
 }
 ```
 
+##### **ii - 해결방법 2**
+
 또는 EntityManager을 주입하여 flush()를 강제 호출하는 아래와 같은 방식으로 코딩해도 된다.
+
 ```java
 public class MemberServiceTest {
 
@@ -157,6 +162,8 @@ public class MemberServiceTest {
 }
 ```
 
+##### **iii - 결과**
+
 위의 변경 사항을 적용하여 코드를 실행하면 아래처럼 insert문이 실행되는 것을 확인할 수 있다.
 
 ```plaintext
@@ -169,3 +176,81 @@ Hibernate:
         (?, ?, ?, ?, ?)
 ```
 
+## 3. 회원 기능 테스트 - 즁복 이름 검사
+
+- 이름이 동일한 두 Member 객체를 DB에 저장할 때 예외를 handling하는 방법이다.
+
+#### **1) 회원 Service Test 코드 - 과정 1**
+
+```java
+package jpabook.jpashop.service;
+
+import jpabook.jpashop.domain.Member;
+import jpabook.jpashop.repository.MemberRepository;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
+
+import static org.junit.Assert.*;
+
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@Transactional
+public class MemberServiceTest {
+
+    @Autowired
+    private MemberService memberService;
+
+    @Autowired
+    private MemberRepository memberRepository;
+
+    @Test
+    public void 중복_회원_예외() throws Exception {
+        //given
+        Member member1 = new Member();
+        member1.setName("kim");
+
+        Member member2 = new Member();
+        member2.setName("kim");
+
+        //when
+        memberService.join(member1);
+        try {
+            memberService.join(member2);
+        } catch (IllegalStateException e) {
+            return;
+        }
+
+        //then
+        fail("예외가 발생해야 한다.");
+    }
+}
+```
+
+#### **2) 회원 Service Test 코드 - 과정 2**
+
+- 메서드 내부에 try - catch 블록을 사용하는 대신 @Test의 expected 값을 예외 클래스로 설정해주는 것도 가능하다.
+
+```java
+@Test(expected = IllegalStateException.class)
+public void 중복_회원_예외() throws Exception {
+    //given
+    Member member1 = new Member();
+    member1.setName("kim");
+
+    Member member2 = new Member();
+    member2.setName("kim");
+
+    //when
+    memberService.join(member1);
+    memberService.join(member2);
+
+    //then
+    fail("예외가 발생해야 한다.");
+}
+```
