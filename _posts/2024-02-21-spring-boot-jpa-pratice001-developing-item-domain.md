@@ -112,8 +112,49 @@ public class NotEnoughStockException extends RuntimeException{
     }*/
 }
 ```
+<br/>
 
 ## 3. 상품 Repository 개발
 
 #### **1) 상품 Repository 코드**
 
+Item 객체를 처음 저장할 때는 당연히 해당 객체에는 id 값이 부여되어 있지 않다.
+
+id 값이 null이면 persist()를 호출해 DB에 저장하고
+
+id 값이 null이 아니라면 merge()를 호출해 DB에 있는 데이터에 병합시킨다.
+
+```java
+package jpabook.jpashop.repository;
+
+import jakarta.persistence.EntityManager;
+import jpabook.jpashop.domain.item.Item;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+@RequiredArgsConstructor
+public class ItemRepository {
+
+    private final EntityManager em;
+
+    public void save(Item item) {
+        if (item.getId() == null) {
+            em.persist(item);
+        } else {
+            em.merge(item);
+        }
+    }
+
+    public Item findOne(Long itemId) {
+        return em.find(Item.class, itemId);
+    }
+
+    public List<Item> findAll() {
+        return em.createQuery("select i from Item i", Item.class)
+                .getResultList();
+    }
+}
+```
