@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "JPA Practice001: #005 - Testing Member Functions"
+title: "JPA Practice001: #005 - Testing Member Methods"
 categories: junk
 author:
   - Youngmoo Park
