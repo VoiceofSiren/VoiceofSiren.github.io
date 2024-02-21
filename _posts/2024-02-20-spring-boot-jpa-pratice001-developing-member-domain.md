@@ -72,7 +72,7 @@ public class MemberRepository {
 ```plaintext
 -- JPA 저장소를 표시하는 annotation.
 -- Spring bean으로 자동 등록된다.
--- JPA 예외를 String 기반 예외로 변환한다.
+-- JPA 예외를 Spring 기반 예외로 변환한다.
 ```
 
 - @RequiredArgsConstructor
