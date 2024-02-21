@@ -34,7 +34,8 @@ meta: "Springfield"
 - 도서 이외의 상품
 - 카테고리
 - 배송 정보
-
+<br/>
+- 
 ## 2. 애플리케이션 아키텍처
 
 ![IMAGE](/assets/images/0003/application-architecture.png)
