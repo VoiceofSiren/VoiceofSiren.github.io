@@ -216,5 +216,6 @@ body {
  }
 }
 ```
-회원 등
-```
+
+##### **5) 실행 시 화면**
+![IMAGE](/assets/images/spring-boot-jpa-practice001/0012/home-page.png)
