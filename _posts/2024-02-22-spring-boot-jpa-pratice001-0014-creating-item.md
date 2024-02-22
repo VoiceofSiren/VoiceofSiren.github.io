@@ -27,6 +27,7 @@ controller.BookForm
 ```java
 package jpabook.jpashop.controller;
 
+import jakarta.validation.constraints.NotEmpty;
 import jpabook.jpashop.domain.item.Book;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,6 +38,7 @@ public class BookForm {
 
     private Long id;
 
+    @NotEmpty(message = "상품명 입력은 필수입니다.")
     private String name;
     private int price;
     private int stockQuantity;
@@ -63,11 +65,13 @@ controller.ItemController
 ```java
 package jpabook.jpashop.controller;
 
+import jakarta.validation.Valid;
 import jpabook.jpashop.domain.item.Book;
 import jpabook.jpashop.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -79,12 +83,17 @@ public class ItemController {
 
     @GetMapping("/items/new")
     public String createForm(Model model) {
-        model.addAttribute("form", new BookForm());
+        model.addAttribute("bookForm", new BookForm());
         return "items/createItemForm";
     }
 
     @PostMapping("/items/new")
-    public String create(BookForm form) {
+    public String create(@Valid BookForm form, BindingResult result) {
+
+        if (result.hasErrors()) {
+            return "items/createItemForm";
+        }
+
         Book book = BookForm.BookForm_to_Book(form);
         itemService.save(book);
         return "redirect:/";
@@ -101,13 +110,21 @@ templates/items/createItemForm.html
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header" />
+<style>
+    .fieldError {
+        border-color: #bd2130;
+    }
+</style>
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
-    <form th:action="@{/items/new}" th:object="${form}" method="post">
+    <form role="form" action="/items/new" th:object="${bookForm}" method="post">
         <div class="form-group">
             <label th:for="name">상품명</label>
-            <input type="text" th:field="*{name}" class="form-control" placeholder="이름을 입력하세요">
+            <input type="text" th:field="*{name}" class="form-control" placeholder="이름을 입력하세요"
+                   th:class="${#fields.hasErrors('name')}? 'form-control fieldError' : 'form-control'">
+            <p th:if="${#fields.hasErrors('name')}"
+               th:errors="*{name}">Incorrect date</p>
         </div>
         <div class="form-group">
             <label th:for="price">가격</label>
@@ -145,3 +162,7 @@ templates/items/createItemForm.html
 h2 DBMS
 
 ![IMAGE](/assets/images/spring-boot-jpa-practice001/0014/h2-select-item.png)
+
+<br/>
+
+## 3. 상품 목록
