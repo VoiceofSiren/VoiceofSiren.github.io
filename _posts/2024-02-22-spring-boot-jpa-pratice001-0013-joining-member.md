@@ -12,7 +12,7 @@ meta: "Springfield"
 ## 1. 웹 계층 개발 목차
 
 - 회원 등록
-- 회원 목록 조회 (다음 글에서)
+- 회원 목록 조회
 - 상품 등록 (다음 글에서)
 - 상품 목록 (다음 글에서)
 - 상품 수정 (다음 글에서)
@@ -167,3 +167,68 @@ templates/members/createMemberForm.html
 - 유효성 검증 후
 
 ![IMAGE](/assets/images/spring-boot-jpa-practice001/0013/after-validation.png)
+
+<br/>
+
+## 3. 회원 목록 조회
+
+##### **1) 회원 Controller**
+
+MemberController에 아래의 메서드를 추가한다.
+
+```java
+    @GetMapping("/members")
+    public String list(Model model) {
+        List<Member> members = memberService.findAll();
+        model.addAttribute("members", members);
+        return "members/memberList";
+    }
+```
+
+##### **2) 회원 조회 html**
+
+members/memberList.html
+
+```html
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>이름</th>
+                <th>도시</th>
+                <th>주소</th>
+                <th>우편번호</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="member : ${members}">
+                <td th:text="${member.id}"></td>
+                <td th:text="${member.name}"></td>
+                <td th:text="${member.address?.city}"></td>
+                <td th:text="${member.address?.street}"></td>
+                <td th:text="${member.address?.zipcode}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+</html>
+```
+##### **2) 회원 조회 html**
+
+회원 목록 조회 화면
+
+![IMAGE](/assets/images/spring-boot-jpa-practice001/0013/member-list-html.png)
+
+회원 조회 시 log 기록
+
+![IMAGE](/assets/images/spring-boot-jpa-practice001/0013/logs-of-listing-member.png)
