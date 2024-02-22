@@ -318,4 +318,5 @@ public class OrderServiceTest {
 }
 ```
 지금까지 구현한 상품_주문_생성()과 상품_주문_재고_수량_초과(), 상품_주문_취소()를 실행시킬 경우 모두 테스트를 정상적으로 통과하였음을 확인할 수 있다.
+
 ![IMAGE](/assets/images/spring-boot-jpa-practice001/0010/all-tests-passed.png)
