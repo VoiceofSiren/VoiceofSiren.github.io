@@ -98,7 +98,7 @@ public class MemberController {
 }
 ```
 
-##### **3) 회원 등록 폼 화면**
+##### **3) 회원 등록 폼 html**
 
 templates/members/createMemberForm.html
 
@@ -114,8 +114,7 @@ templates/members/createMemberForm.html
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
-    <form role="form" action="/members/new" th:object="${memberForm}"
-          method="post">
+    <form role="form" action="/members/new" th:object="${memberForm}" method="post">
         <div class="form-group">
             <label th:for="name">이름</label>
             <input type="text" th:field="*{name}" class="form-control" placeholder="이름을 입력하세요"
@@ -146,3 +145,21 @@ templates/members/createMemberForm.html
 </body>
 </html>
 ```
+
+##### **4) 실행 시 화면**
+
+회원 등록 시 실행 화면
+
+![IMAGE](/assets/images/spring-boot-jpa-practice001/0013/members-createMemberForm-html.png)
+
+회원 등록 시 log 기록
+
+![IMAGE](/assets/images/spring-boot-jpa-practice001/0013/logs-of-joining-member.png)
+
+유효성 검증 전
+
+![IMAGE](/assets/images/spring-boot-jpa-practice001/0013/before-validation.png)
+
+유효성 검증 후
+
+![IMAGE](/assets/images/spring-boot-jpa-practice001/0013/after-validation.png)
