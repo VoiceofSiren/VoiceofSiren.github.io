@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "JPA Practice001: #0012 - Developing Web Layer"
+title: "JPA Practice001: #0001 - Starting Out with Spring boot JPA practice001"
 categories: junk
 author:
   - Youngmoo Park
@@ -9,165 +9,212 @@ meta: "Springfield"
 
 이 예제는 Inflearn에서 김영한 강사님이 강의하시는 '실전! 스프링 부트와 JPA 활용1 - 웹 애플리케이션 개발' 강의를 수강하면서 클론 코딩해보는 예제를 다루고 있습니다.
 
-## 1. 회원 도메인 개발 목차
+## 1. 웹 계층 개발 목차
 
-- 구현 기능
-  - 회원 등록
-  - 회원 목록 조회
+- 홈 화면과 레이아웃
+- 회원 등록 (다음 글에서)
+- 회원 목록 조회 (다음 글에서)
+- 상품 등록 (다음 글에서)
+- 상품 목록 (다음 글에서)
+- 상품 수정 (다음 글에서)
+- 변경 감지와 병합 (merge) (다음 글에서)
+- 상품 주문 (다음 글에서)
+- 주문 목록 검색, 취소 (다음 글에서)
 
-- 순서
-  - 회원 Repository 개발
-  - 회원 Service 개발
-  - 회원 기능 테스트 (다음 글에서)
-<br/>
+## 2. 홈 화면과 레이아웃
 
-## 2. 회원 Repository 개발
+HomeController를 등록한다.
 
-#### **1) 회원 Repository 코드**
-
+##### **1) controller.HomeController**
 ```java
-package jpabook.jpashop.repository;
+package jpabook.jpashop.controller;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jpabook.jpashop.domain.Member;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
+@Controller
+@Slf4j
+public class HomeController {
 
-@Repository
-@RequiredArgsConstructor
-public class MemberRepository {
-
-    @PersistenceContext
-    private final EntityManager em;
-
-    public Long save(Member member) {
-        em.persist(member);
-        return member.getId();
-    }
-
-    public Member findOne(Long id) {
-        return em.find(Member.class, id);
-    }
-
-    public List<Member> findAll() {
-        return em.createQuery("select m from Member m", Member.class)
-                .getResultList();
-    }
-
-    public List<Member> findByName(String name) {
-        return em.createQuery("select m from Member m where m.name = :name", Member.class)
-                .setParameter("name", name)
-                .getResultList();
+    @RequestMapping("/")
+    public String home() {
+        log.info("home controller");
+        return "home";
     }
 }
-
 ```
 
-#### **2) 기술 설명**
+##### **2) application.yml**
 
-- @Repository
-```plaintext
--- JPA 저장소를 표시하는 annotation.
--- Spring bean으로 자동 등록된다.
--- JPA 예외를 Spring 기반 예외로 변환한다.
+Thymeleaf 템플릿 엔진을 사용하기 위해 기존의 application.yml 파일에 해당 설정을 추가한다.
+
+```yaml
+spring:
+  thymeleaf:
+      prefix: classpath:/templates/
+      suffix: .html
 ```
 
-- @RequiredArgsConstructor
-```plaintext
--- 생성자에 필수 의존성을 명시하는 annotation.
--- @Autowired와 함께 사용하면 생성자 주입 방식을 사용할 수 있다.
+##### **3) Thymeleaf templates 등록**
+
+home.html
+
+```html
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <title>Hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <div class="jumbotron">
+        <h1>HELLO SHOP</h1>
+        <p class="lead">회원 기능</p>
+        <p>
+            <a class="btn btn-lg btn-secondary" href="/members/new">회원 가입</a>
+            <a class="btn btn-lg btn-secondary" href="/members">회원 목록</a>
+        </p>
+        <p class="lead">상품 기능</p>
+        <p>
+            <a class="btn btn-lg btn-dark" href="/items/new">상품 등록</a>
+            <a class="btn btn-lg btn-dark" href="/items">상품 목록</a>
+        </p>
+        <p class="lead">주문 기능</p>
+        <p>
+            <a class="btn btn-lg btn-info" href="/order">상품 주문</a>
+            <a class="btn btn-lg btn-info" href="/orders">주문 내역</a>
+        </p>
+    </div>
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+</html>
 ```
 
-- @PersistenceContext
-```plaintext
--- JPA EntityManager를 주입하는 annotation.
--- @PersistenceUnit private EntityManagerFactory emf;를 거의 사용하지 않게 된다.
+fragments/header.html
+
+```html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="header">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrinkto-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" integrity="sha384-
+ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    <!-- Custom styles for this template -->
+    <link href="/css/jumbotron-narrow.css" rel="stylesheet">
+    <title>Hello, world!</title>
+</head>
 ```
-<br/>
 
-## 3. 회원 Service 개발
+fragments/bodyHeader.html
 
-#### **1) 회원 Service 코드**
+```html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="header" th:fragment="bodyHeader">
+    <ul class="nav nav-pills pull-right">
+        <li><a href="/">Home</a></li>
+    </ul>
+    <a href="/"><h3 class="text-muted">HELLO SHOP</h3></a>
+</div>
+```
 
-```java
-package jpabook.jpashop.service;
+fragments/footer.html
 
-import jpabook.jpashop.domain.Member;
-import jpabook.jpashop.repository.MemberRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+```html
+```html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="footer" th:fragment="footer">
+    <p>&copy; Hello Shop V2</p>
+</div>
+```
 
-import java.util.List;
+##### **4) view 리소스 등록**
 
-@Service
-@RequiredArgsConstructor
-@Transactional
-public class MemberService {
+Bootstrap v5.3.3의 css와 js를 다운로드 받은 후 resources/static 하위에 추가하였다.
 
-    private final MemberRepository memberRepository;
-
-    /**
-     * 회원 가입
-     */
-    @Transactional
-    public Long join(Member member) {
-        validateMemberDuplication(member); // 중복 회원 검증
-        return memberRepository.save(member);
-    }
-
-    /**
-     * 중복 회원 검증
-     */
-    private void validateMemberDuplication(Member member) {
-        List<Member> findMembers = memberRepository.findByName(member.getName());
-        if (!findMembers.isEmpty()) {
-            throw new IllegalStateException("이미 존재하는 회원입니다.");
-        }
-    }
-
-    /**
-     * 회원 전체 조회
-     */
-    @Transactional(readOnly = true)
-    public List<Member> findAll() {
-        return memberRepository.findAll();
-    }
-
-    /**
-     * 단일 회원 조회
-     */
-    @Transactional(readOnly = true)
-    public Member findOne(Long memberId) {
-        return memberRepository.findOne(memberId);
-    }
-
+추가적으로 아래의 jumbotron-narrow.css 파일도 추가하였다.
+```css
+/* Space out content a bit */
+body {
+ padding-top: 20px;
+ padding-bottom: 20px;
 }
-
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.marketing,
+.footer {
+ padding-left: 15px;
+ padding-right: 15px;
+}
+/* Custom page header */
+.header {
+ border-bottom: 1px solid #e5e5e5;
+}
+/* Make the masthead heading the same height as the navigation */
+.header h3 {
+ margin-top: 0;
+ margin-bottom: 0;
+ line-height: 40px;
+ padding-bottom: 19px;
+}
+/* Custom page footer */
+.footer {
+ padding-top: 19px;
+ color: #777;
+ border-top: 1px solid #e5e5e5;
+}
+/* Customize container */
+@media (min-width: 768px) {
+ .container {
+ max-width: 730px;
+ }
+}
+.container-narrow > hr {
+ margin: 30px 0;
+}
+/* Main marketing message and sign up button */
+.jumbotron {
+ text-align: center;
+ border-bottom: 1px solid #e5e5e5;
+}
+.jumbotron .btn {
+ font-size: 21px;
+ padding: 14px 24px;
+}
+/* Supporting marketing content */
+.marketing {
+ margin: 40px 0;
+}
+.marketing p + h4 {
+ margin-top: 28px;
+}
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+ /* Remove the padding we set earlier */
+ .header,
+ .marketing,
+ .footer {
+ padding-left: 0;
+ padding-right: 0;
+ }
+ /* Space out the masthead */
+ .header {
+ margin-bottom: 30px;
+ }
+ /* Remove the bottom border on the jumbotron for visual effect */
+ .jumbotron {
+ border-bottom: 0;
+ }
+}
 ```
-
-#### **2) 기술 설명**
-
-- @Service
-```plaintext
--- 비즈니스 로직을 처리하는 객체를 표시하는 annotation.
--- Spring bean으로 자동 등록된다.
-```
-
-- @Transactional
-```plaintext
--- 트랜잭션을 관리하는 annotation.
--- 메서드에 적용하면 해당 메서드 내에서 일어나는 모든 작업은 하나의 트랜잭션으로 처리된다.
--- JPA를 통해 데이터를 조회하거나 조작하는 모든 기능은 트랜잭션 내부에서 실행되어야 하고, 이 annotation이 있어야 지연 로딩을 사용할 수 있다.
--- DB Driver가 지원하면 DB에서 성능이 향상된다.
--- readOnly=true: 조회 전용 메서드에서 사용하면 영속성 컨텍스트를 flush하지 않으므로 약간의 성능이 향상된다. (default: readOnly=false)
-```
-
-- @Autowired
-```plaintext
--- 생성자, setter 메서드 또는 필드에 사용하여 의존성을 자동으로 주입하는 annotation.
--- 필드에 사용하는 경우 @RequiredArgsConstructor와 함계 사용하면 더욱 안전하게 객체를 생성할 수 있다.
+회원 등
 ```
