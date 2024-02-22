@@ -156,6 +156,10 @@ templates/members/createMemberForm.html
 
 ![IMAGE](/assets/images/spring-boot-jpa-practice001/0013/logs-of-joining-member.png)
 
+- h2 DBMS
+
+![IMAGE](/assets/images/spring-boot-jpa-practice001/0013/h2-select-member.png)
+
 - 유효성 검증 전
 
 ![IMAGE](/assets/images/spring-boot-jpa-practice001/0013/before-validation.png)
