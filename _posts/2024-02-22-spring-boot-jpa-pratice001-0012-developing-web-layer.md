@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "JPA Practice001: #004 - Developing Member Domain and Repository"
+title: "JPA Practice001: #0012 - Developing Web Layer"
 categories: junk
 author:
   - Youngmoo Park

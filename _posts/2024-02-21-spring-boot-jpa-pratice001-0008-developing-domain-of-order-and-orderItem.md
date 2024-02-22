@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "JPA Practice001: #008 - Developing Domain of Order and OrderItem"
+title: "JPA Practice001: #0008 - Developing Domain of Order and OrderItem"
 categories: junk
 author:
   - Youngmoo Park

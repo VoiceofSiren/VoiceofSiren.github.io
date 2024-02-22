@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "JPA Practice001: #003 - Implementation Requirements and Application Architecture"
+title: "JPA Practice001: #0003 - Implementation Requirements and Application Architecture"
 categories: junk
 author:
   - Youngmoo Park

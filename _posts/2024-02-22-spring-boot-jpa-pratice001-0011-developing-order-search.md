@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "JPA Practice001: #011 - Developing OrderSearch"
+title: "JPA Practice001: #0011 - Developing OrderSearch"
 categories: junk
 author:
   - Youngmoo Park

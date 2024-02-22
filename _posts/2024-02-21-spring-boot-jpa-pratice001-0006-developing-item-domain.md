@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "JPA Practice001: #006 - Developing Item Domain and Repository"
+title: "JPA Practice001: #0006 - Developing Item Domain and Repository"
 categories: junk
 author:
   - Youngmoo Park

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "JPA Practice001: #007 - Testing Item Methods"
+title: "JPA Practice001: #0007 - Testing Item Methods"
 categories: junk
 author:
   - Youngmoo Park

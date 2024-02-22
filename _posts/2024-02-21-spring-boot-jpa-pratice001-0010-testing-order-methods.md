@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "JPA Practice001: #010 - Testing Order Methods"
+title: "JPA Practice001: #0010 - Testing Order Methods"
 categories: junk
 author:
   - Youngmoo Park

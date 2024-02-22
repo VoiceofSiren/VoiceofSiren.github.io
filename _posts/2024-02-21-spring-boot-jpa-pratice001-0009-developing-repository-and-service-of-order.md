@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "JPA Practice001: #009 - Developing OrderRepository and OrderService"
+title: "JPA Practice001: #0009 - Developing OrderRepository and OrderService"
 categories: junk
 author:
   - Youngmoo Park
