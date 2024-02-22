@@ -11,7 +11,7 @@ meta: "Springfield"
 
 ## 1. 구현 요구사항
 
-![IMAGE](/assets/images/0003/implementation-requirements.png)
+![IMAGE](/assets/images/spring-boot-jpa-practice001/0003/implementation-requirements.png)
 
 #### **1) 구현할 기능**
 
@@ -38,7 +38,7 @@ meta: "Springfield"
 - 
 ## 2. 애플리케이션 아키텍처
 
-![IMAGE](/assets/images/0003/application-architecture.png)
+![IMAGE](/assets/images/spring-boot-jpa-practice001/0003/application-architecture.png)
 
 #### **1) 계층형 구조 사용**
 

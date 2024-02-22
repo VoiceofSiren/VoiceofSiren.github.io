@@ -19,8 +19,9 @@ meta: "Springfield"
 - 순서
   - 주문 Repository 개발
   - 주문 Service 개발
-  - 주문 검색 기능 개발 (다음 글에서)
   - 주문 기능 테스트 (다음 글에서)
+  - 주문 검색 기능 개발 (다음 글에서)
+
 <br/>
 
 ## 2. 주문 Repository 개발

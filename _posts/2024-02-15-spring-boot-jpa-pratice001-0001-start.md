@@ -31,7 +31,7 @@ meta: "Springfield"
   - 상품 주문 시 배송 정보를 입력할 수 있다.
 
 ## 2. 도메인 모델과 테이블 설계
-![IMAGE](/assets/images/0001/domain-model.png)
+![IMAGE](/assets/images/spring-boot-jpa-practice001/0001/domain-model.png)
 1. 회원, 주문, 상품의 관계: 회원은 여러 상품을 주문할 수 있다. 그리고 한 번 주문할 때 여러 상품을 선택할 수 있으므로
 주문과 상품은 다대다 관계다. 하지만 이런 다대다 관계는 관계형 데이터베이스는 물론이고 엔티티에서도 거의 사용하
 지 않는다. 따라서 그림처럼 주문상품이라는 엔티티를 추가해서 다대다 관계를 일대다, 다대일 관계로 풀어냈다.
@@ -40,7 +40,7 @@ meta: "Springfield"
 
 <br/>
 
-![IMAGE](/assets/images/0001/member-entity-analysis.png)
+![IMAGE](/assets/images/spring-boot-jpa-practice001/0001/member-entity-analysis.png)
 1. 회원 (Member): 이름과 Embedded 타입인 주소 (Address), 그리고 주문 (orders) 리스트를 가진다.
 2. 주문 (Order): 한 번 주문시 여러 상품을 주문할 수 있으므로 주문과 주문상품 (OrderItem)은 일대다 관계다. 주문은
 상품을 주문한 회원과 배송 정보, 주문 날짜, 주문 상태(status)를 가지고 있다. 주문 상태는 열거형을 사용했는데 주
@@ -55,7 +55,7 @@ meta: "Springfield"
 
 <br/>
 
-![IMAGE](/assets/images/0001/member-table-analysis.png)
+![IMAGE](/assets/images/spring-boot-jpa-practice001/0001/member-table-analysis.png)
 1. MEMBER: 회원 엔티티의 Address 임베디드 타입 정보가 회원 테이블에 그대로 들어갔다. 이것은 DELIVERY 테
 이블도 마찬가지다.
 2. ITEM: 앨범, 도서, 영화 타입을 통합해서 하나의 테이블로 만들었다. DTYPE 컬럼으로 타입을 구분한다.
