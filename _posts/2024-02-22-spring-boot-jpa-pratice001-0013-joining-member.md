@@ -148,18 +148,18 @@ templates/members/createMemberForm.html
 
 ##### **4) 실행 시 화면**
 
-회원 등록 시 실행 화면
+- 회원 등록 시 실행 화면
 
 ![IMAGE](/assets/images/spring-boot-jpa-practice001/0013/members-createMemberForm-html.png)
 
-회원 등록 시 log 기록
+- 회원 등록 시 log 기록
 
 ![IMAGE](/assets/images/spring-boot-jpa-practice001/0013/logs-of-joining-member.png)
 
-유효성 검증 전
+- 유효성 검증 전
 
 ![IMAGE](/assets/images/spring-boot-jpa-practice001/0013/before-validation.png)
 
-유효성 검증 후
+- 유효성 검증 후
 
 ![IMAGE](/assets/images/spring-boot-jpa-practice001/0013/after-validation.png)
