@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "JPA Practice001: #0014 - Creating Item"
+title: "JPA Practice001: #0014 - Creating and Listing Item"
 categories: junk
 author:
   - Youngmoo Park
@@ -166,3 +166,69 @@ h2 DBMS
 <br/>
 
 ## 3. 상품 목록
+
+##### **1) 상품 Controller**
+
+controller.itemController에 아래의 메서드를 추가한다.
+
+```java
+    @GetMapping("/items")
+    public String list(Model model) {
+        List<Item> items = itemService.findAll();
+        model.addAttribute("items", items);
+        return "items/itemList";
+    }
+```
+
+##### **2) 상품 목록 html**
+
+templates/items/itemList.html
+
+```html
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>상품명</th>
+                <th>가격</th>
+                <th>재고수량</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${items}">
+                <td th:text="${item.id}"></td>
+                <td th:text="${item.name}"></td>
+                <td th:text="${item.price}"></td>
+                <td th:text="${item.stockQuantity}"></td>
+                <td>
+                    <a href="#" th:href="@{/items/{id}/edit (id=${item.id})}"
+                       class="btn btn-primary" role="button">수정</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:replace="fragments/footer :: footer"/>
+</div> <!-- /container -->
+</body>
+</html>
+```
+
+##### **3) 실행 시 화면**
+
+상품 목록 조회 화면
+
+![IMAGE](/assets/images/spring-boot-jpa-practice001/0014/item-list-html.png)
+
+상품 조회 시 log 기록
+
+![IMAGE](/assets/images/spring-boot-jpa-practice001/0014/logs-of-listing-item.png)
+

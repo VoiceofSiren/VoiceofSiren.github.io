@@ -192,7 +192,7 @@ public class ItemService {
         return itemRepository.findOne(itemId);
     }
 
-    public List<Item> findItems() {
+    public List<Item> findAll() {
         return itemRepository.findAll();
     }
 }

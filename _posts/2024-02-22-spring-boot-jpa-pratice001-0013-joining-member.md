@@ -223,7 +223,7 @@ members/memberList.html
 </body>
 </html>
 ```
-##### **2) 회원 조회 html**
+##### **3) 실행 시 화면**
 
 회원 목록 조회 화면
 
