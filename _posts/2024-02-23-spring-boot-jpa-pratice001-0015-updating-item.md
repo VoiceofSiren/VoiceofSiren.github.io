@@ -56,7 +56,49 @@ public class BookForm {
 }
 ```
 
-##### **2) 상품 Controller**
+##### **2) 상품 Update DTO**
+
+dto.ItemUpdateDTO 객체를 추가한다.
+
+```java
+package jpabook.jpashop.dto;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class ItemUpdateDTO {
+
+    private String name;
+    private int price;
+    private int stockQuantity;
+    private String author;
+    private String isbn;
+}
+```
+
+#### **3) 상품 Service**
+
+service.ItemService에 아래의 메서드를 추가한다.
+
+```java
+    @Transactional
+    public void updateBook(Long itemId, ItemUpdateDTO itemUpdateDTO) {
+
+        // 영속 상태
+        Book foundBook = (Book) itemRepository.findOne(itemId);
+        foundBook.setName(itemUpdateDTO.getName());
+        foundBook.setPrice(itemUpdateDTO.getPrice());
+        foundBook.setStockQuantity(itemUpdateDTO.getStockQuantity());
+        foundBook.setAuthor(itemUpdateDTO.getAuthor());
+        foundBook.setIsbn(itemUpdateDTO.getIsbn());
+
+        // Dirty check -> em.persist() 및 tx.commit() 필요 없이 자동으로 update됨.
+    }
+```
+
+##### **4) 상품 Controller**
 
 기존의 controller.ItemController에 아래의 메서드를 추가한다.
 
@@ -79,24 +121,17 @@ public class BookForm {
 
     @PostMapping("/items/{itemId}/edit")
     public String updateItem(@PathVariable(name = "itemId") Long itemId,
-                             @ModelAttribute(name = "form") BookForm form,
+                             @ModelAttribute(name = "form") ItemUpdateDTO itemUpdateDTO,
                              Model model) {
-        Book book = new Book();
-
-        book.setId(form.getId());
-        book.setName(form.getName());
-        book.setPrice(form.getPrice());
-        book.setStockQuantity(form.getStockQuantity());
-        book.setAuthor(form.getAuthor());
-        book.setIsbn(form.getIsbn());
-
-        itemService.save(book);
-
+        itemService.updateBook(itemId, itemUpdateDTO);
         return "redirect:/items";
+        
     }
 ```
 
-##### **3) 상품 수정 폼 html**
+
+
+##### **5) 상품 수정 폼 html**
 
 templates/items/updateItemForm.html
 
