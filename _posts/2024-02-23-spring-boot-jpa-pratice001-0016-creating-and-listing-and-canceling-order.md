@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "JPA Practice001: #0014 - Creating and Listing Item"
+title: "JPA Practice001: #0016 - Creating, Listing, and removing Order"
 categories: junk
 author:
   - Youngmoo Park
@@ -231,6 +231,8 @@ templates/orders/orderList.html
 
 ### **3-2. 주문 취소**
 
+##### **1) 주문 Controller**
+
 controller.OrderController에 아래의 메서드를 추가한다.
 
 ```java
@@ -240,3 +242,13 @@ controller.OrderController에 아래의 메서드를 추가한다.
         return "redirect:/orders";
     }
 ```
+
+##### **2) 실행 시 화면**
+
+주문 취소 후 화면
+
+![IMAGE](/assets/images/spring-boot-jpa-practice001/0016/after-canceling-order.png)
+
+주문 취소 시 log 기록
+
+![IMAGE](/assets/images/spring-boot-jpa-practice001/0016/logs-of-canceling-order.png)
