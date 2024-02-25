@@ -178,3 +178,54 @@ JPA Update문
 회원 수정 후
 
 ![IMAGE](/assets/images/spring-boot-jpa-practice001/0017/after-updating-member.png)
+<br/>
+
+## 5. 회원 조회 API 개발
+
+- HTTP의 GET 메서드를 사용할 것이다.
+
+#### **1) 회원 조회 API 코드**
+
+api.MemberApiController에 아래의 메서드를 추가한다.
+
+```java
+
+```java
+    @GetMapping("/api/v2/members")
+    public Result membersV2() {
+        List<Member> members = memberService.findAll();
+        List<MemberDTO> collect = members.stream()
+                .map(member -> new MemberDTO(member.getName()))
+                .collect(Collectors.toList());
+        return new Result(collect.size(),collect);
+    }
+```
+
+#### **2) 회원 조회 DTO 클래스**
+
+api.MemberApiController 내부에서만 쓰이기 때문에 MemberApiController 내부에 static 클래스로 정의한다.
+
+```java
+    @Data
+    @AllArgsConstructor
+    static class Result<T> {
+        private int count;
+        private T data;
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class MemberDTO {
+        private String name;
+    }
+```
+
+#### **3) 요청과 응답**
+
+postman을 이용한 요청과 응답
+
+![IMAGE](/assets/images/spring-boot-jpa-practice001/0017/update-member-v2-postman.png)
+
+JPA Update문
+
+![IMAGE](/assets/images/spring-boot-jpa-practice001/0017/logs-of-listing-member.png)
