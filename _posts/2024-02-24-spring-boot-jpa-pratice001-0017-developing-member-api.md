@@ -22,6 +22,7 @@ meta: "Springfield"
 https://www.postman.com/downloads/
 
 postman 설치 후 실행
+<br/>
 
 ## 3. 회원 등록 API 개발
 
@@ -108,3 +109,72 @@ JPA Insert문
 
 ![IMAGE](/assets/images/spring-boot-jpa-practice001/0017/save-member-v2-jpa.png)
 <br/>
+
+## 4. 회원 수정 API 개발
+
+- HTTP의 PUT 메서드를 사용할 것이다.
+
+#### **1) 회원 수정 API 코드**
+
+api.MemberApiController에 아래의 메서드를 추가한다.
+
+```java
+    @PutMapping("/api/v2/members/{id}")
+    public UpdateMemberResponse updateMemberV2(@PathVariable(name = "id") Long id,
+                                               @RequestBody @Valid UpdateMemberRequest request) {
+        memberService.update(id, request.getName());
+        Member updatedMember = memberService.findOne(id);
+        return new UpdateMemberResponse(updatedMember.getId(), updatedMember.getName());
+    }
+```
+
+#### **2) 회원 수정 요청 및 응답 클래스**
+
+api.MemberApiController 내부에서만 쓰이기 때문에 MemberApiController 내부에 static 클래스로 정의한다.
+
+```java
+    @Data
+    static class UpdateMemberRequest {
+        private String name;
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class UpdateMemberResponse {
+        private Long id;
+        private String name;
+    }
+```
+
+#### **3) 회원 수정 Service 코드**
+
+service.MemberService 내부에 아래의 메서드를 추가한다.
+
+```java
+    /**
+     * 단일 회원 수정
+     */
+    @Transactional
+    public void update(Long id, String name) {
+        Member member = memberRepository.findOne(id);
+        member.setName(name);
+    }
+```
+
+#### **4) 요청과 응답**
+
+회원 수정 전 
+
+![IMAGE](/assets/images/spring-boot-jpa-practice001/0017/before-updating-member.png)
+
+postman을 이용한 요청과 응답
+
+![IMAGE](/assets/images/spring-boot-jpa-practice001/0017/update-member-v2-postman.png)
+
+JPA Update문
+
+![IMAGE](/assets/images/spring-boot-jpa-practice001/0017/logs-of-updating-member.png)
+
+회원 수정 후
+
+![IMAGE](/assets/images/spring-boot-jpa-practice001/0017/after-updating-member.png)
