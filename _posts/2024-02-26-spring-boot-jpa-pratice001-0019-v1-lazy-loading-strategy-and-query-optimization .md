@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "JPA Practice001: #0019 - (v1) Lazy Loading Strategy and Query Optimization"
+title: "JPA Practice001: #0019 - [Performance Optimization V1] Lazy Loading Strategy and Query Optimization"
 categories: junk
 author:
   - Youngmoo Park
