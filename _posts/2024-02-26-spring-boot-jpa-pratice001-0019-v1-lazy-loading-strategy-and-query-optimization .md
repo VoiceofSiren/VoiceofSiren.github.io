@@ -17,6 +17,8 @@ meta: "Springfield"
 
 ## 2. (v1) 간단한 주문 조회: Entity를 직접 노출
 
+- Order Entity와 연관되어 있는 Member와 Delivery까지만 조회하고자 한다.
+
 #### **1) 주문 RestController 코드**
 
 api.OrderSimpleApiController
@@ -70,6 +72,7 @@ log 기록
 ##### **에러 분석**
 ```plaintext
 - Order 객체를 조회하려니 Order와 연관 관계에 있는 다른 Entity를 참조하고, 그 Entity에서 다시 Order로 참조하는 무한 루프가 발생한다.
+- 즉, 양방향 연관 관계의 한 쪽에 참조하지 않도록 무언가를 처리해줘야 한다.
 ```
 ##### **해결 방법**
 ```plaintext
@@ -114,4 +117,59 @@ JpashopApplication
 
 #### **6) 응답과 요청**
 
+Postman 실행
+
 ![IMAGE](/assets/images/spring-boot-jpa-practice001/0019/order-entities.png)
+
+- 조회 대상이 아닌 OrderItem 필드까지 조회되는 문제점이 발생하였다.
+<br/>
+
+## 2. 지연 로딩 강제 초기화
+
+#### **1) 주문 RestController 코드**
+
+api.OrderSimpleApiController
+
+```java
+package jpabook.jpashop.api;
+
+import jpabook.jpashop.domain.Order;
+import jpabook.jpashop.repository.OrderRepository;
+import jpabook.jpashop.repository.OrderSearch;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+
+/**
+ * xToOne
+ * Order
+ * Order -> Member (ManyToOne)
+ * Order -> Delivery (OneToOne)
+ */
+@RestController
+@RequiredArgsConstructor
+public class OrderSimpleApiController {
+
+    private final OrderRepository orderRepository;
+
+    @GetMapping("/api/v1/simple-orders")
+    public List<Order> ordersV1() {
+        List<Order> orders = orderRepository.findAllByString(new OrderSearch());
+        for (Order order: orders) {
+            order.getMember().getName();    // LAZY 강제 초기화
+        }
+        return orders;
+    }
+}
+```
+
+#### **2) 응답과 요청**
+
+Postman 실행
+
+![IMAGE](/assets/images/spring-boot-jpa-practice001/0019/v1-success.png)
+
+- order.getMember().getName();을 통해 강제로 DB에 flush()시켜서 member Entity에 대한 모든 정보가 조회되었음을 확인할 수 있다.
