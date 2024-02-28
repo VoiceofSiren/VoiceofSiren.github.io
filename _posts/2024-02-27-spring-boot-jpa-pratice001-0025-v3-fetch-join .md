@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "JPA Practice001: #0025 - [Collection Fetch Optimization V3] Fetch JOIN"
+title: "JPA Practice001: #0025 - [Collection Fetch Optimization V3] Collection Fetch JOIN"
 categories: junk
 author:
   - Youngmoo Park
@@ -16,7 +16,7 @@ meta: "Springfield"
 #### **목차**
 
 - 주문 조회 v3: Entity를 DTO로 변환 후 Fetch JOIN 최적화
-- Paging과 한계 돌파
+- Paging과 한계 돌파 (다음 글에서)
 - 주문 조회 v4: JPA에서 DTO를 직접 조회 (다음 글에서)
 - 주문 조회 v5: JPA에서 DTO를 직접 조회, 컬렉션 조회 최적화 (다음 글에서)
 - 주문 조회 v5: JPA에서 DTO를 직접 조회, 플랫 조회 최적화 (다음 글에서)
