@@ -145,43 +145,6 @@ public class OrderQueryRepository {
 
 Postman 실행
 
-![IMAGE](/assets/images/spring-boot-jpa-practice001/0026/postman-v3_1-overloading.png)
-
-#### **3) 주문 RestController 코드**
-
-api.OrderApiController의 ordersV3_paging메서드를 아래와 같이 수정한다.
-
-```java
-    @GetMapping("/api/v3.1/orders")
-    public List<OrderDTO> ordersV3_paging(@RequestParam(value = "offset", defaultValue = "0") int offset,
-                                          @RequestParam(value = "limit", defaultValue = "100") int limit) {
-        List<Order> orders = orderRepository.findAllWithMemberDelivery(offset, limit);
-        return orders.stream()
-        .map(order -> new OrderDTO(order))
-        .collect(Collectors.toList());
-    }
-```
-
-#### **4) 주문 Repository 코드**
-
-repository.OrderRepository에 있는 findAllWithMemberDelivery() 메서드를 Overloading한다.
-
-```java
-    public List<Order> findAllWithMemberDelivery(int offset, int limit) {
-        return em.createQuery(
-                        "select o from Order o " +
-                                "join fetch o.member m " +
-                                "join fetch o.delivery d ", Order.class)
-                .setFirstResult(offset)
-                .setMaxResults(limit)
-                .getResultList();
-    }
-```
-
-#### **5) 응답과 요청**
-
-Postman 실행
-
 ![IMAGE](/assets/images/spring-boot-jpa-practice001/0027/postman-v4.png)
 
 #### **6) 문제점 분석 및 해결 방법**
