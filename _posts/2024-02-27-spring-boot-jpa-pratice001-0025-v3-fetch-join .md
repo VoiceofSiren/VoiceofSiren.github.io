@@ -55,7 +55,7 @@ api.OrderApiController에 아래의 메서드를 추가한다.
     }
 ```
 
-#### **3) 응답과 요청**
+#### **3) 요청과 응답**
 
 Postman 실행
 
@@ -249,7 +249,7 @@ public class OrderApiController {
 }
 ```
 
-#### **2) 응답과 요청**
+#### **2) 요청과 응답**
 
 Postman 실행
 

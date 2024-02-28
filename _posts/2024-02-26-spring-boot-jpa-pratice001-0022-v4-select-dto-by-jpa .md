@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "JPA Practice001: #0022 - [Performance Optimization V4] Select DTO by JPA"
+title: "JPA Practice001: #0022 - [Performance Optimization V4] Selecting DTO Directly by JPA"
 categories: junk
 author:
   - Youngmoo Park

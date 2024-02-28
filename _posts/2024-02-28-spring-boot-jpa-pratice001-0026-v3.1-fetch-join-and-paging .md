@@ -73,7 +73,7 @@ repository.OrderRepository에 있는 findAllWithMemberDelivery() 메서드를 Ov
     }
 ```
 
-#### **5) 응답과 요청**
+#### **5) 요청과 응답**
 
 Postman 실행
 
@@ -129,7 +129,7 @@ logging:
 
 ```
 
-#### **2) 응답과 요청**
+#### **2) 요청과 응답**
 
 Postman 실행
 
