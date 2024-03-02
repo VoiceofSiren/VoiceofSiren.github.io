@@ -68,7 +68,7 @@ OrderQueryRepository에 아래의 메서드를 추가한다.
 
 Postman 실행
 
-![IMAGE](/assets/images/spring-boot-jpa-practice001/0027/postman-v4.png)
+![IMAGE](/assets/images/spring-boot-jpa-practice001/0028/postman-v5.png)
 
 JPA log 기록
 
