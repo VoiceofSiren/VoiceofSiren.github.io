@@ -21,7 +21,7 @@ meta: "Springfield"
 - Paging과 한계 돌파 (다음 글에서)
 - 주문 조회 v4: JPA에서 DTO를 직접 조회 (다음 글에서)
 - 주문 조회 v5: JPA에서 DTO를 직접 조회, 컬렉션 조회 최적화 (다음 글에서)
-- 주문 조회 v5: JPA에서 DTO를 직접 조회, 플랫 조회 최적화 (다음 글에서)
+- 주문 조회 v6: JPA에서 DTO를 직접 조회, 플랫 조회 최적화 (다음 글에서)
 - API 개발 정리 (다음 글에서)
 <br/>
 
@@ -61,7 +61,7 @@ static class OrderDTO {
 }
 ```
 
-#### **2) 응답과 요청**
+#### **2) 요청과 응답**
 
 Postman 실행
 
@@ -255,7 +255,7 @@ public class OrderApiController {
 }
 ```
 
-#### **2) 응답과 요청**
+#### **2) 요청과 응답**
 
 Postman 실행
 
